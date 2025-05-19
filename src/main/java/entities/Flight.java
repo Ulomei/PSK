@@ -39,7 +39,7 @@ public class Flight implements Serializable{
     private Airline airline;
 
     @ManyToMany(mappedBy = "flights")
-    private List<Passenger> tasks = new ArrayList<>();
+    private List<Passenger> passengers = new ArrayList<>();
 
     @Version
     @Column(name = "OPT_LOCK_VERSION")

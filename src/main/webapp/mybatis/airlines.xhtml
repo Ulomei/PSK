@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+    <h2>Airlines with My Batis:</h2>
+    <ol>
+        <ui:repeat value="#{airlineMyBatis.loadAllAirlines()}" var="dep">
+            <li>#{dep.name}</li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <div>
+            <h:outputLabel value="Airline name: " for="airlineNameInput"/>
+            <h:inputText id="airlineNameInput" value="#{airlineMyBatis.airline.name}" required="true"/>
+        </div>
+        <h:commandButton value="Add new airline" action='#{airlineMyBatis.addAirline()}' />
+    </h:form>
+    <h:link value="Back to index" outcome="/index"/>
+    <br/>
+    <h:link value="To My batis flights" outcome="/mybatis/flights"/>
+</h:body>
+</html>

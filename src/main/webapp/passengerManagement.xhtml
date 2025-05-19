@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:metadata>
+    <f:viewParam name="passengerId" value="#{passengerManagementBean.passengerId}" required="true"/>
+    <f:event type="preRenderView" listener="#{passengerManagementBean.loadPassengerData()}"/>
+</f:metadata>
+<h:body>
+    <h1>Passeneger #{passengerManagementBean.passenger.firstName}</h1>
+    <h:form rendered="#{not empty passengerManagementBean.passenger.flights}">
+        <h2>Flights assigned to passenger:</h2>
+        <ol>
+            <ui:repeat value="#{passengerManagementBean.passenger.flights}" var="flight">
+                <li>
+                    <h:link value="#{flight.departure} #{flight.destination}" outcome="flightManagement?employeeId=#{flight.id}" />
+                    <h:commandButton value="x"
+                                     actionListener="#{passengerManagementBean.removeEmployeeFromProject(flight.id)}"
+                                     action="#{'passengerManagement?faces-redirect=true&amp;projectId='.concat(projectDetailsBean.project.id)}"/>
+                </li>
+            </ui:repeat>
+        </ol>
+    </h:form>
+    <h:form rendered="#{not empty passengerManagementBean.getNewFlight()}">
+        <h2>Newbies to the project:</h2>
+        <ol>
+            <ui:repeat value="#{passengerManagementBean.getNewFlight()}" var="employee">
+                <li>#{employee.firstName} #{employee.lastName}</li>
+            </ui:repeat>
+        </ol>
+    </h:form>
+    <h:form>
+        <div>
+            <h:outputLabel value="Flights that are empty:" for="flightCheckboxes" />
+            <h:selectManyCheckbox id="flightCheckboxes" value="#{passengerManagementBean.selectedFlightIds}" layout="pageDirection">
+                <f:selectItems value="#{passengerManagementBean.emptyFlights}" var="fly"
+                               itemValue="#{fly.id}" itemLabel="#{fly.departure} - #{fly.destination} - #{fly.airline.name}" />
+            </h:selectManyCheckbox>
+        </div>
+        <br/>
+        <h:commandButton value="Add flights to passengers"
+                         actionListener="#{passengerManagementBean.addFlightsToPassenger()}"
+                         action="#{'passengerManagement?faces-redirect=true&amp;passengerId='.concat(passengerManagementBean.passenger.id)}">
+            <f:param name="passengerId" value="#{passengerManagementBean.passenger.id}"/>
+        </h:commandButton>
+    </h:form>
+    <h:form>
+        <h:commandButton value="DELETE THIS PASSENEGR"
+                         action="#{passengerManagementBean.deletePassenger()}"/>
+    </h:form>
+    <br/>
+    <h:link outcome="index" value="Back to index page"/>
+</h:body>
+</html>

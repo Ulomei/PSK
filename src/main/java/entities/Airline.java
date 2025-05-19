@@ -17,7 +17,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Table(name = "AIRLINE")
 @NamedQueries({
-        @NamedQuery(name = "Ailine.findAll", query = "select a from Airline as a")
+        @NamedQuery(name = "Airline.findAll", query = "select a from Airline as a")
 })
 
 public class Airline implements Serializable {

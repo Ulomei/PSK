@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" >
+<h:body>
+    <div>
+        <h2>Airlines</h2>
+        <h4>Current airlines:</h4>
+        <ol>
+            <ui:repeat value="#{airlineBean.airlines}" var="air">
+                <li><h:link value="#{air.name}" outcome="airlineManagement?depId=#{air.id}" /></li>
+            </ui:repeat>
+        </ol>
+        <h4>Create new airline:</h4>
+        <h:form>
+            <div>
+                <h:outputLabel value="Name:" for="nameInput" />
+                <h:inputText id="nameInput" value="#{airlineBean.airline.name}" required="true" />
+            </div>
+            <br/>
+            <h:commandButton value="Add new airline" actionListener="#{airlineBean.create()}" action="index?faces-redirect=true"/>
+        </h:form>
+    </div>
+    <div>
+        <h2>Passengers</h2>
+        <h4>Current passenegers:</h4>
+        <ol>
+            <ui:repeat value="#{passengersBean.passengers}" var="passeneger">
+                <li><h:link value="#{passeneger.firstName}" outcome="passenegerManagement?passenegerId=#{passeneger.id}" /></li>
+            </ui:repeat>
+        </ol>
+        <h4>Create new passeneger:</h4>
+        <h:form>
+            <div>
+                <h:outputLabel value="Name:" for="nameInput" />
+                <h:inputText id="nameInput" value="#{passengersBean.passenger.firstName}" required="true" />
+            </div>
+
+            <div>
+                <h:outputLabel value="LastName:" for="LastNameInput" />
+                <h:inputText id="LastNameInput" value="#{passengersBean.passenger.lastName}" required="true" />
+            </div>
+            <div>
+                <h:outputLabel value="Flights:" for="flightCheckboxes" />
+                <h:selectManyCheckbox id="flightCheckboxes" value="#{passengersBean.passenger.flights}" layout="pageDirection">
+                    <f:selectItems value="#{flightBean.getFlight()}" var="fly"
+                                   itemValue="#{fly}" itemLabel="#{fly.departure} #{fly.destinatioon} - #{fly.airline.name}" />
+                </h:selectManyCheckbox>
+            </div>
+            <br/>
+            <h:commandButton value="Add new passenger" actionListener="#{passengersBean.create()}" action="index?faces-redirect=true"/>
+        </h:form>
+    </div>
+    <div>
+        <h:link outcome="mybatis/airlines" value="MyBatis implementation"/>
+    </div>
+</h:body>
+</html>

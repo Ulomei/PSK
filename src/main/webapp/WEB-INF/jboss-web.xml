@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>/PSK-Pirmas</context-root>
+</jboss-web>

@@ -9,6 +9,6 @@ public interface PassengerFlightMapper {
     int insert(PassengerFlight row);
     List<PassengerFlight> selectAll();
     int deleteAllPassengersForFlight(Integer flightId);
-    int deletePassengerForFlight(PassengerFlight row);
+    int deletePassengerForFlight(Integer row);
     int deleteAllFlightsForPassenger(Integer passengerId);
 }

@@ -1,7 +1,5 @@
 package mybatis.model;
 
-import entities.Airline;
-import entities.Passenger;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;

@@ -38,7 +38,7 @@ public class Passenger implements Serializable {
     @JoinTable(name = "PASSENGER_FLIGHT",
             joinColumns = @JoinColumn(name = "PASSENGER_ID"),
             inverseJoinColumns = @JoinColumn(name = "FLIGHT_ID"))
-    private List<Flight> employees = new ArrayList<>();
+    private List<Flight> flights = new ArrayList<>();
 
     @Version
     @Column(name = "OPT_LOCK_VERSION")
@@ -60,7 +60,4 @@ public class Passenger implements Serializable {
     public int hashCode() {
         return Objects.hash(id, firstName, lastName);
     }
-
-
-
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="PSKpirmas" targetRuntime="MyBatis3Simple">
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost:5432/PSKpirmas"
+                        userId="postgres"
+                        password="root">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="mybatis.model"  targetProject="MAVEN"/>
+
+        <sqlMapGenerator targetPackage="mybatis.xml"  targetProject="MAVEN"/>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="mybatis.mapper" targetProject="MAVEN"/>
+
+        <table schema="public" tableName="flight">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC"/>
+            <ignoreColumn column="opt_lock_version" />
+        </table>
+        <table schema="public" tableName="passenger">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC"/>
+            <ignoreColumn column="opt_lock_version" />
+        </table>
+        <table schema="public" tableName="airline">
+            <generatedKey column="id" identity="true" sqlStatement="JDBC"/>
+            <ignoreColumn column="opt_lock_version" />
+        </table>
+        <table schema="public" tableName="passenger_flight">
+        </table>
+    </context>
+</generatorConfiguration>

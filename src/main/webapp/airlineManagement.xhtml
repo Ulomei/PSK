@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core">
+<f:metadata>
+    <f:viewParam name="airId" value="#{airlineManagementBean.airlineId}" required="true"/>
+    <f:event type="preRenderView" listener="#{airlineManagementBean.loadAirlineData}"/>
+</f:metadata>
+<h:body>
+    <h1>Airline #{airlineManagementBean.airline.name}</h1>
+    <h:form rendered="#{not empty airlineManagementBean.airline.flights}">
+        <h2>Flights in the airline:</h2>
+        <ol>
+            <ui:repeat value="#{airlineManagementBean.airline.flights}" var="flight">
+                <li>
+                    <h:link value="#{flight.departure}" outcome="employeeDetails?employeeId=#{flight.id}" />
+                    <h:commandButton value="x"
+                                     actionListener="#{airlineManagementBean.deleteFlight(flight.id)}"
+                                     action="#{'airlineManagement?faces-redirect=true&amp;depId='.concat(airlineManagementBean.airline.id)}"/>
+                </li>
+            </ui:repeat>
+        </ol>
+    </h:form>
+    <h4>Add new flight:</h4>
+    <h:form>
+        <div>
+            <h:outputLabel value="Departure: " for="departure"/>
+            <h:inputText id="departure" a:placeholder="Departure" value="#{airlineManagementBean.flight.departure}" required="true" />
+        </div>
+        <div>
+            <h:outputLabel value="Destination: " for="destinationInput"/>
+            <h:inputText id="destinationInput" a:placeholder="Destination" value="#{airlineManagementBean.flight.destination}" required="true" />
+        </div>
+        <br/>
+        <div>
+            <h:commandButton value="Add flight to airline"
+                             actionListener="#{airlineManagementBean.createFlight()}"
+                             action="#{'airlineManagement?faces-redirect=true&amp;airId='.concat(airlineManagementBean.airline.id)}">
+            </h:commandButton>
+        </div>
+    </h:form>
+    <h:form>
+        <h:commandButton value="DELETE THIS AIRLINE"
+                         action="#{airlineManagementBean.deleteAirline}"/>
+    </h:form>
+    <br/>
+    <h:link outcome="index" value="Back to index page"/>
+</h:body>
+</html>
