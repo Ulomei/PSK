@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.PassengerFlightMapper">
+    <resultMap id="BaseResultMap" type="mybatis.model.PassengerFlight">
+        <result column="passenger_id" jdbcType="INTEGER" property="passengerId" />
+        <result column="flight_id" jdbcType="INTEGER" property="flightId" />
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select passenger_id, flight_id
+        from PASSENGER_FLIGHT
+    </select>
+
+    <insert id="insert" parameterType="mybatis.model.PassengerFlight">
+        insert into PASSENGER_FLIGHT (passenger_id, flight_id)
+        values (#{passengerId,jdbcType=INTEGER}, #{flightId,jdbcType=INTEGER})
+    </insert>
+
+    <delete id="deleteAllPassengersForFlight" parameterType="java.lang.Integer">
+        delete from PASSENGER_FLIGHT
+        where flight_id = #{flightId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deletePassengerForFlight" parameterType="mybatis.model.PassengerFlight">
+        delete from PASSENGER_FLIGHT
+        where passenger_id = #{passengerId,jdbcType=INTEGER} AND flight_id = #{flightId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteAllFlightsForPassenger" parameterType="java.lang.Integer">
+        delete from PASSENGER_FLIGHT
+        where passenger_id = #{passengerId,jdbcType=INTEGER}
+    </delete>
+</mapper>

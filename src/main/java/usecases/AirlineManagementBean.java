@@ -39,6 +39,7 @@ public class AirlineManagementBean implements Serializable{
         airline = airlineDAO.find(airlineId);
     }
 
+    @Transactional
     public void createFlight() {
         var managedAirline = airlineDAO.find(airline.getId());
         flight.setAirline(managedAirline);

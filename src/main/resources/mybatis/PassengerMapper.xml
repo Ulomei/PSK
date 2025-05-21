@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.PassengerMapper">
+    <resultMap id="BaseResultMap" type="mybatis.model.Passenger">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="first_name" jdbcType="VARCHAR" property="firstName" />
+        <result column="last_name" jdbcType="VARCHAR" property="lastName" />
+    </resultMap>
+
+    <resultMap id="PassengerWithFlightsMap" type="mybatis.model.Passenger" extends="BaseResultMap">
+        <collection property="flights" ofType="mybatis.model.Flight">
+            <id column="flight_id" jdbcType="INTEGER" property="id" />
+            <result column="departure" jdbcType="VARCHAR" property="departure" />
+            <result column="destination" jdbcType="VARCHAR" property="destination" />
+            <result column="airline_id" jdbcType="INTEGER" property="airlineId" />
+        </collection>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="PassengerWithFlightsMap">
+        select p.id, p.first_name, p.last_name, 
+               f.id as flight_id, f.departure, f.destination, f.airline_id
+        from PASSENGER p
+        left join PASSENGER_FLIGHT pf on p.id = pf.passenger_id
+        left join FLIGHT f on pf.flight_id = f.id
+        where p.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, first_name, last_name
+        from PASSENGER
+    </select>
+
+    <insert id="insert" parameterType="mybatis.model.Passenger" useGeneratedKeys="true" keyProperty="id">
+        insert into PASSENGER (first_name, last_name)
+        values (#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="mybatis.model.Passenger">
+        update PASSENGER
+        set first_name = #{firstName,jdbcType=VARCHAR},
+            last_name = #{lastName,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from PASSENGER
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+</mapper>

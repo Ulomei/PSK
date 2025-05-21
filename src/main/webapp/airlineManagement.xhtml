@@ -17,10 +17,10 @@
         <ol>
             <ui:repeat value="#{airlineManagementBean.airline.flights}" var="flight">
                 <li>
-                    <h:link value="#{flight.departure}" outcome="employeeDetails?employeeId=#{flight.id}" />
+                    <h:link value="#{flight.departure}" outcome="flightManagement?flightId=#{flight.id}" />
                     <h:commandButton value="x"
                                      actionListener="#{airlineManagementBean.deleteFlight(flight.id)}"
-                                     action="#{'airlineManagement?faces-redirect=true&amp;depId='.concat(airlineManagementBean.airline.id)}"/>
+                                     action="#{'airlineManagement?faces-redirect=true&amp;airId='.concat(airlineManagementBean.airline.id)}"/>
                 </li>
             </ui:repeat>
         </ol>

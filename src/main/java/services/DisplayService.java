@@ -3,12 +3,16 @@ package services;
 import entities.Flight;
 import org.example.pskpirmas.HelloServlet;
 
+import javax.enterprise.context.ApplicationScoped;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DisplayService {
+@ApplicationScoped
+public class DisplayService implements Serializable {
 
     private Map<Integer, List<Flight>> newFlights = new HashMap<>();
 

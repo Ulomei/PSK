@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.AirlineMapper">
+    <resultMap id="BaseResultMap" type="mybatis.model.Airline">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+    </resultMap>
+    
+    <resultMap id="AirlineWithFlightsMap" type="mybatis.model.Airline" extends="BaseResultMap">
+        <collection property="flights" ofType="mybatis.model.Flight">
+            <id column="flight_id" jdbcType="INTEGER" property="id" />
+            <result column="departure" jdbcType="VARCHAR" property="departure" />
+            <result column="destination" jdbcType="VARCHAR" property="destination" />
+            <result column="airline_id" jdbcType="INTEGER" property="airlineId" />
+        </collection>
+    </resultMap>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select id, name
+        from AIRLINE
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, name
+        from AIRLINE
+    </select>
+    
+    <select id="selectAllWithFlights" resultMap="AirlineWithFlightsMap">
+        select a.id, a.name, f.id as flight_id, f.departure, f.destination, f.airline_id
+        from AIRLINE a
+        left join FLIGHT f on a.id = f.airline_id
+    </select>
+    
+    <insert id="insert" parameterType="mybatis.model.Airline" useGeneratedKeys="true" keyProperty="id">
+        insert into AIRLINE (name)
+        values (#{name,jdbcType=VARCHAR})
+    </insert>
+    
+    <update id="updateByPrimaryKey" parameterType="mybatis.model.Airline">
+        update AIRLINE
+        set name = #{name,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from AIRLINE
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+</mapper>

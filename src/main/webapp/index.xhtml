@@ -11,7 +11,7 @@
         <h4>Current airlines:</h4>
         <ol>
             <ui:repeat value="#{airlineBean.airlines}" var="air">
-                <li><h:link value="#{air.name}" outcome="airlineManagement?depId=#{air.id}" /></li>
+                <li><h:link value="#{air.name}" outcome="airlineManagement?airId=#{air.id}" /></li>
             </ui:repeat>
         </ol>
         <h4>Create new airline:</h4>

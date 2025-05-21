@@ -12,7 +12,7 @@
 <h:body>
     <h2>Flight:</h2>
     <p>ID: #{flightBean.flight.id}</p>
-    <p>Name: #{flightBean.flight.departure} #{flightBean.flight.destination}</p>
+    <p>Flight path: #{flightBean.flight.departure} #{flightBean.flight.destination}</p>
     <h:panelGroup rendered="#{flightBean.flight.airline != null}">
         <p>Airline: #{flightBean.flight.airline.name}</p>
     </h:panelGroup>
@@ -20,7 +20,7 @@
         <h3>Passenger:</h3>
         <ul>
             <ui:repeat value="#{flightBean.flight.passengers}" var="passenger">
-                <li><h:link value="#{passenger.firstName}" outcome="passengerManagement?projectId=#{passenger.id}" /> - #{passenger.lastName}</li>
+                <li><h:link value="#{passenger.firstName}" outcome="passengerManagement?passengerId=#{passenger.id}" /> - #{passenger.lastName}</li>
             </ui:repeat>
         </ul>
     </h:panelGroup>

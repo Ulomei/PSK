@@ -27,7 +27,6 @@ public abstract class BaseDAO<T> {
     public T update(T entity) {return em.merge(entity);}
 
     public List<T> findAll() {
-        return em.createQuery(entityClass.getSimpleName() + ".findAll", entityClass).getResultList();
+        return em.createNamedQuery(entityClass.getSimpleName() + ".findAll", entityClass).getResultList();
     }
 }
-

@@ -16,10 +16,10 @@
         <ol>
             <ui:repeat value="#{passengerManagementBean.passenger.flights}" var="flight">
                 <li>
-                    <h:link value="#{flight.departure} #{flight.destination}" outcome="flightManagement?employeeId=#{flight.id}" />
+                    <h:link value="#{flight.departure} #{flight.destination}" outcome="flightManagement?flightId=#{flight.id}" />
                     <h:commandButton value="x"
                                      actionListener="#{passengerManagementBean.removeEmployeeFromProject(flight.id)}"
-                                     action="#{'passengerManagement?faces-redirect=true&amp;projectId='.concat(projectDetailsBean.project.id)}"/>
+                                     action="#{'passengerManagement?faces-redirect=true&amp;passengerId='.concat(passengerManagementBean.passenger.id)}"/>
                 </li>
             </ui:repeat>
         </ol>
