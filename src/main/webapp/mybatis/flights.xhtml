@@ -9,7 +9,7 @@
     <h:form>
         <ol>
             <ui:repeat value="#{flightMyBatis.loadAllFlights()}" var="fly">
-                <li>#{fly.departure} #{fly.destination} - #{fly.flight.name}. Current passenger count: #{fly.passenger.size()}</li>
+                <li>#{fly.departure} #{fly.destination} - #{fly.airline.name}</li>
                 <h:commandButton value="x" action="#{flightMyBatis.deleteFlight(fly.id)}"/>
             </ui:repeat>
         </ol>

@@ -7,29 +7,24 @@
         <result column="passenger_id" jdbcType="INTEGER" property="passengerId" />
         <result column="flight_id" jdbcType="INTEGER" property="flightId" />
     </resultMap>
-
-    <select id="selectAll" resultMap="BaseResultMap">
-        select passenger_id, flight_id
-        from PASSENGER_FLIGHT
-    </select>
-
     <insert id="insert" parameterType="mybatis.model.PassengerFlight">
-        insert into PASSENGER_FLIGHT (passenger_id, flight_id)
+        insert into public.passenger_flight (passenger_id, flight_id)
         values (#{passengerId,jdbcType=INTEGER}, #{flightId,jdbcType=INTEGER})
     </insert>
-
+    <select id="selectAll" resultMap="BaseResultMap">
+        select passenger_id, flight_id
+        from public.passenger_flight
+    </select>
     <delete id="deleteAllPassengersForFlight" parameterType="java.lang.Integer">
-        delete from PASSENGER_FLIGHT
-        where flight_id = #{flightId,jdbcType=INTEGER}
+        DELETE FROM public.passenger_flight
+        WHERE flight_id = #{flightId,jdbcType=INTEGER}
     </delete>
-
     <delete id="deletePassengerForFlight" parameterType="mybatis.model.PassengerFlight">
-        delete from PASSENGER_FLIGHT
-        where passenger_id = #{passengerId,jdbcType=INTEGER} AND flight_id = #{flightId,jdbcType=INTEGER}
+        DELETE FROM public.passenger_flight
+        WHERE flight_id = #{flightId,jdbcType=INTEGER} AND passenger_id = #{passengerId,jdbcType=INTEGER}
     </delete>
-
     <delete id="deleteAllFlightsForPassenger" parameterType="java.lang.Integer">
-        delete from PASSENGER_FLIGHT
-        where passenger_id = #{passengerId,jdbcType=INTEGER}
+        DELETE FROM public.passenger_flight
+        WHERE passenger_id = #{passengerId, jdbcType=INTEGER}
     </delete>
 </mapper>

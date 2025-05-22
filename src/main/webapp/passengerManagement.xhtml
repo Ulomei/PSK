@@ -25,10 +25,10 @@
         </ol>
     </h:form>
     <h:form rendered="#{not empty passengerManagementBean.getNewFlight()}">
-        <h2>Newbies to the project:</h2>
+        <h2>New booked flights:</h2>
         <ol>
-            <ui:repeat value="#{passengerManagementBean.getNewFlight()}" var="employee">
-                <li>#{employee.firstName} #{employee.lastName}</li>
+            <ui:repeat value="#{passengerManagementBean.getNewFlight()}" var="flight">
+                <li>#{flight.departure} - #{flight.destination}</li>
             </ui:repeat>
         </ol>
     </h:form>
@@ -37,7 +37,7 @@
             <h:outputLabel value="Flights that are empty:" for="flightCheckboxes" />
             <h:selectManyCheckbox id="flightCheckboxes" value="#{passengerManagementBean.selectedFlightIds}" layout="pageDirection">
                 <f:selectItems value="#{passengerManagementBean.emptyFlights}" var="fly"
-                               itemValue="#{fly.id}" itemLabel="#{fly.departure} - #{fly.destination} - #{fly.airline.name}" />
+                               itemValue="#{fly.id}" itemLabel="#{fly.airline.name}: #{fly.departure} - #{fly.destination}" />
             </h:selectManyCheckbox>
         </div>
         <br/>

@@ -3,49 +3,55 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.PassengerMapper">
-    <resultMap id="BaseResultMap" type="mybatis.model.Passenger">
+    <resultMap id="FlightMapForCollection" type="mybatis.model.Flight">
+        <id property="id" column="flight_id"/>
+        <result property="departure" column="departure"/>
+        <result property="destination" column="destination"/>
+    </resultMap>
+    <resultMap id="PassengerWithFlightsResultMap" type="mybatis.model.Passenger">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="first_name" jdbcType="VARCHAR" property="firstName" />
         <result column="last_name" jdbcType="VARCHAR" property="lastName" />
+        <collection property="flights" ofType="mybatis.model.Flight" resultMap="FlightMapForCollection"/>
     </resultMap>
-
-    <resultMap id="PassengerWithFlightsMap" type="mybatis.model.Passenger" extends="BaseResultMap">
-        <collection property="flights" ofType="mybatis.model.Flight">
-            <id column="flight_id" jdbcType="INTEGER" property="id" />
-            <result column="departure" jdbcType="VARCHAR" property="departure" />
-            <result column="destination" jdbcType="VARCHAR" property="destination" />
-            <result column="airline_id" jdbcType="INTEGER" property="airlineId" />
-        </collection>
-    </resultMap>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="PassengerWithFlightsMap">
-        select p.id, p.first_name, p.last_name, 
-               f.id as flight_id, f.departure, f.destination, f.airline_id
-        from PASSENGER p
-        left join PASSENGER_FLIGHT pf on p.id = pf.passenger_id
-        left join FLIGHT f on pf.flight_id = f.id
-        where p.id = #{id,jdbcType=INTEGER}
-    </select>
-
-    <select id="selectAll" resultMap="BaseResultMap">
-        select id, first_name, last_name
-        from PASSENGER
-    </select>
-
-    <insert id="insert" parameterType="mybatis.model.Passenger" useGeneratedKeys="true" keyProperty="id">
-        insert into PASSENGER (first_name, last_name)
-        values (#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR})
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from public.passenger
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="mybatis.model.Passenger" useGeneratedKeys="true">
+        insert into public.passenegr (first_name, last_name)
+        values (#{first_name,jdbcType=VARCHAR}, #{last_name,jdbcType=VARCHAR})
     </insert>
-
     <update id="updateByPrimaryKey" parameterType="mybatis.model.Passenger">
-        update PASSENGER
+        update public.passenger
         set first_name = #{firstName,jdbcType=VARCHAR},
             last_name = #{lastName,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from PASSENGER
-        where id = #{id,jdbcType=INTEGER}
-    </delete>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="PassengerWithFlightsResultMap">
+        SELECT
+            p.id,
+            p.first_name,
+            p.last_name,
+            f.id as flight_id,
+            f.departure as departure,
+            f.destination as destination,
+        FROM public.passenger p
+                 LEFT JOIN public.flight_passenger fp ON p.id = fp.passenger_id
+                 LEFT JOIN public.flight f ON fp.flight_id = f.id
+        WHERE p.id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="PassengerWithFlightsResultMap">
+        SELECT
+            p.id,
+            p.first_name,
+            p.last_name,
+            f.id as flight_id,
+            f.departure as departure,
+            f.destination as destination,
+        FROM public.passenger p
+                 LEFT JOIN public.flight_passenger fp ON p.id = fp.passenger_id
+                 LEFT JOIN public.flight f ON fp.flight_id = f.id
+        ORDER BY p.id
+    </select>
 </mapper>

@@ -11,7 +11,7 @@
     <f:event type="preRenderView" listener="#{airlineManagementBean.loadAirlineData}"/>
 </f:metadata>
 <h:body>
-    <h1>Airline #{airlineManagementBean.airline.name}</h1>
+    <h2>Airline #{airlineManagementBean.airline.name}</h2>
     <h:form rendered="#{not empty airlineManagementBean.airline.flights}">
         <h2>Flights in the airline:</h2>
         <ol>

@@ -8,8 +8,8 @@
 <h:body>
     <h2>Airlines with My Batis:</h2>
     <ol>
-        <ui:repeat value="#{airlineMyBatis.loadAllAirlines()}" var="dep">
-            <li>#{dep.name}</li>
+        <ui:repeat value="#{airlineMyBatis.loadAllAirlines()}" var="air">
+            <li>#{air.name}</li>
         </ui:repeat>
     </ol>
     <h:form>

@@ -4,12 +4,10 @@ import entities.Flight;
 import entities.Passenger;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.var;
 import persistence.FlightDAO;
 import persistence.PassengerDAO;
 import services.DisplayService;
 
-import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -78,7 +76,7 @@ public class PassengerManagementBean implements Serializable{
             var flight = flightDAO.find(employeeId);
             if(flight != null){
                 managedPassenegr.getFlights().add(flight);
-                displayService.addNewFlightsToPassenegr(passenger.getId(), flight);
+                displayService.addNewFlightsToPassenger(passenger.getId(), flight);
             }
         }
     }
@@ -100,5 +98,8 @@ public class PassengerManagementBean implements Serializable{
         }
 
         managedPassenger.getFlights().remove(flight);
+
+        // Also remove the flight from the DisplayService
+        displayService.removeFlightFromPassenger(passenger.getId(), flightId);
     }
 }

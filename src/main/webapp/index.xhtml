@@ -8,31 +8,31 @@
 <h:body>
     <div>
         <h2>Airlines</h2>
-        <h4>Current airlines:</h4>
+        <h4>List of airlines:</h4>
         <ol>
             <ui:repeat value="#{airlineBean.airlines}" var="air">
                 <li><h:link value="#{air.name}" outcome="airlineManagement?airId=#{air.id}" /></li>
             </ui:repeat>
         </ol>
-        <h4>Create new airline:</h4>
+        <h4>Create airline:</h4>
         <h:form>
             <div>
                 <h:outputLabel value="Name:" for="nameInput" />
                 <h:inputText id="nameInput" value="#{airlineBean.airline.name}" required="true" />
             </div>
             <br/>
-            <h:commandButton value="Add new airline" actionListener="#{airlineBean.create()}" action="index?faces-redirect=true"/>
+            <h:commandButton value="Add airline" actionListener="#{airlineBean.create()}" action="index?faces-redirect=true"/>
         </h:form>
     </div>
     <div>
         <h2>Passengers</h2>
-        <h4>Current passenegers:</h4>
+        <h4>List of signed passenegers:</h4>
         <ol>
-            <ui:repeat value="#{passengersBean.passengers}" var="passeneger">
-                <li><h:link value="#{passeneger.firstName}" outcome="passenegerManagement?passenegerId=#{passeneger.id}" /></li>
+            <ui:repeat value="#{passengersBean.passengers}" var="passenger">
+                <li><h:link value="#{passenger.firstName}" outcome="passengerManagement?passengerId=#{passenger.id}" /></li>
             </ui:repeat>
         </ol>
-        <h4>Create new passeneger:</h4>
+        <h4>Sign passeneger: </h4>
         <h:form>
             <div>
                 <h:outputLabel value="Name:" for="nameInput" />
@@ -40,18 +40,11 @@
             </div>
 
             <div>
-                <h:outputLabel value="LastName:" for="LastNameInput" />
+                <h:outputLabel value="Last Name:" for="LastNameInput" />
                 <h:inputText id="LastNameInput" value="#{passengersBean.passenger.lastName}" required="true" />
             </div>
-            <div>
-                <h:outputLabel value="Flights:" for="flightCheckboxes" />
-                <h:selectManyCheckbox id="flightCheckboxes" value="#{passengersBean.passenger.flights}" layout="pageDirection">
-                    <f:selectItems value="#{flightBean.getFlight()}" var="fly"
-                                   itemValue="#{fly}" itemLabel="#{fly.departure} #{fly.destinatioon} - #{fly.airline.name}" />
-                </h:selectManyCheckbox>
-            </div>
             <br/>
-            <h:commandButton value="Add new passenger" actionListener="#{passengersBean.create()}" action="index?faces-redirect=true"/>
+            <h:commandButton value="Add passenger" actionListener="#{passengersBean.create()}" action="index?faces-redirect=true"/>
         </h:form>
     </div>
     <div>

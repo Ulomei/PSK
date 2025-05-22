@@ -10,17 +10,13 @@
     <f:event type="preRenderView" listener="#{flightBean.loadFlightData()}"/>
 </f:metadata>
 <h:body>
-    <h2>Flight:</h2>
+    <h3>Flight: #{flightBean.flight.departure} - #{flightBean.flight.destination} by #{flightBean.flight.airline.name}</h3>
     <p>ID: #{flightBean.flight.id}</p>
-    <p>Flight path: #{flightBean.flight.departure} #{flightBean.flight.destination}</p>
-    <h:panelGroup rendered="#{flightBean.flight.airline != null}">
-        <p>Airline: #{flightBean.flight.airline.name}</p>
-    </h:panelGroup>
     <h:panelGroup rendered="#{not empty flightBean.flight.passengers}">
         <h3>Passenger:</h3>
         <ul>
             <ui:repeat value="#{flightBean.flight.passengers}" var="passenger">
-                <li><h:link value="#{passenger.firstName}" outcome="passengerManagement?passengerId=#{passenger.id}" /> - #{passenger.lastName}</li>
+                <li><h:link value="#{passenger.firstName} #{passenger.lastName}" outcome="passengerManagement?passengerId=#{passenger.id}" /> </li>
             </ui:repeat>
         </ul>
     </h:panelGroup>

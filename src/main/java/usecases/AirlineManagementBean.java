@@ -4,9 +4,9 @@ import entities.Airline;
 import entities.Flight;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.var;
 import persistence.AirlineDAO;
 import persistence.FlightDAO;
+import services.DisplayService;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -22,6 +22,9 @@ public class AirlineManagementBean implements Serializable{
 
     @Inject
     private FlightDAO flightDAO;
+
+    @Inject
+    private DisplayService displayService;
 
     @Getter
     @Setter
@@ -61,6 +64,9 @@ public class AirlineManagementBean implements Serializable{
                 assignedPassenger.getFlights().remove(flight);
             }
         }
+
+        // Remove the flight from the DisplayService for all passengers
+        displayService.removeFlightFromAllPassengers(flightId);
 
         flightDAO.removeById(flight.getId());
     }

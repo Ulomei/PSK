@@ -23,12 +23,11 @@ public class AirlineMyBatis implements Serializable{
     @Setter
     private Airline airline = new Airline();
 
-    private List<Airline> loadAllAirlines() {return airlineMapper.selectAllWithFlights();}
+    public List<Airline> loadAllAirlines() {return airlineMapper.selectAllWithFlights();}
 
     @Transactional
     public String addAirline() {
         airlineMapper.insert(airline);
         return "/mybatis/airlines?faces-redirect=true";
     }
-
 }

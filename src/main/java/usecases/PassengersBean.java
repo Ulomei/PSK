@@ -3,7 +3,6 @@ package usecases;
 import entities.Passenger;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.var;
 import persistence.PassengerDAO;
 import services.DisplayService;
 
@@ -41,7 +40,7 @@ public class PassengersBean implements Serializable{
     public void create() {
         passengerDAO.persist(passenger);
         for (var pas : passenger.getFlights()) {
-            displayService.addNewFlightsToPassenegr(passenger.getId(), pas);
+            displayService.addNewFlightsToPassenger(passenger.getId(), pas);
         }
     }
 }
