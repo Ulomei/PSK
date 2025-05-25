@@ -7,19 +7,56 @@
       xmlns:f="http://java.sun.com/jsf/core">
 <f:metadata>
     <f:viewParam name="flightId" value="#{flightBean.flightId}" required="true"/>
+    <f:viewParam name="error" value="#{flightBean.error}"/>
     <f:event type="preRenderView" listener="#{flightBean.loadFlightData()}"/>
 </f:metadata>
+<h:head>
+    <title>Flight Management</title>
+</h:head>
 <h:body>
     <h3>Flight: #{flightBean.flight.departure} - #{flightBean.flight.destination} by #{flightBean.flight.airline.name}</h3>
     <p>ID: #{flightBean.flight.id}</p>
+
+    <h:panelGroup rendered="#{flightBean.optimisticLockError}" style="color: red">
+        <h:outputText value="#{flightBean.errorMessage}" />
+    </h:panelGroup>
+    <h:panelGroup id="errorPanel" />
+
+    <h:form id="editForm" >
+        <h4>Edit Flight Details</h4>
+        <div >
+            <span>Departure:</span>
+            <h:inputText value="#{flightBean.flight.departure}" />
+        </div>
+        <div >
+            <span>Destination:</span>
+            <h:inputText value="#{flightBean.flight.destination}" />
+        </div>
+
+        <div>
+            <h:commandButton value="Save Changes" action="#{flightBean.updateFlight}" />
+            <h:button value="Cancel" outcome="airlineManagement.xhtml?airId=#{flightBean.flight.airline.id}" />
+        </div>
+    </h:form>
+
     <h:panelGroup rendered="#{not empty flightBean.flight.passengers}">
-        <h3>Passenger:</h3>
+        <h3>Passengers:</h3>
         <ul>
             <ui:repeat value="#{flightBean.flight.passengers}" var="passenger">
                 <li><h:link value="#{passenger.firstName} #{passenger.lastName}" outcome="passengerManagement?passengerId=#{passenger.id}" /> </li>
             </ui:repeat>
         </ul>
     </h:panelGroup>
-    <h:link outcome="index" value="Back to index"/>
+
+    <div>
+        <div>
+        <h:link outcome="index" value="Back to index"/>
+        </div>
+        <div>
+        <h:link outcome="airlineManagement" value="Back to airline">
+            <f:param name="airId" value="#{flightBean.flight.airline.id}" />
+        </h:link>
+        </div>
+    </div>
 </h:body>
 </html>

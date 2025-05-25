@@ -2,6 +2,7 @@ package persistence;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 public abstract class BaseDAO<T> {
@@ -24,6 +25,7 @@ public abstract class BaseDAO<T> {
 
     public T find(Object Id) {return em.find(entityClass, Id);}
 
+    @Transactional
     public T update(T entity) {return em.merge(entity);}
 
     public List<T> findAll() {
