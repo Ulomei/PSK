@@ -9,11 +9,11 @@
     <h:form>
         <ol>
             <ui:repeat value="#{flightMyBatis.loadAllFlights()}" var="fly">
-                <li>#{fly.departure} #{fly.destination} - #{fly.airline.name}</li>
-                <h:commandButton value="x" action="#{flightMyBatis.deleteFlight(fly.id)}"/>
+                <li>#{fly.airline.name}: #{fly.departure}-#{fly.destination}</li>
+                <h:commandButton value="Delete flight" action="#{flightMyBatis.deleteFlight(fly.id)}"/>
             </ui:repeat>
         </ol>
     </h:form>
-    <h:link value="Back to index" outcome="/index"/>
+    <h:link value="Index page" outcome="/index"/>
 </h:body>
 </html>

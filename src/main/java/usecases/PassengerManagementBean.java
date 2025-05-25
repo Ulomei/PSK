@@ -7,7 +7,6 @@ import lombok.Setter;
 import persistence.FlightDAO;
 import persistence.PassengerDAO;
 import services.DisplayService;
-
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -96,10 +95,8 @@ public class PassengerManagementBean implements Serializable{
         if (flight == null) {
             return;
         }
-
         managedPassenger.getFlights().remove(flight);
 
-        // Also remove the flight from the DisplayService
         displayService.removeFlightFromPassenger(passenger.getId(), flightId);
     }
 }

@@ -8,7 +8,6 @@
 <h:body>
     <div>
         <h2>Airlines</h2>
-        <h4>List of airlines:</h4>
         <ol>
             <ui:repeat value="#{airlineBean.airlines}" var="air">
                 <li><h:link value="#{air.name}" outcome="airlineManagement?airId=#{air.id}" /></li>
@@ -26,7 +25,6 @@
     </div>
     <div>
         <h2>Passengers</h2>
-        <h4>List of signed passenegers:</h4>
         <ol>
             <ui:repeat value="#{passengersBean.passengers}" var="passenger">
                 <li><h:link value="#{passenger.firstName}" outcome="passengerManagement?passengerId=#{passenger.id}" /></li>
@@ -44,11 +42,11 @@
                 <h:inputText id="LastNameInput" value="#{passengersBean.passenger.lastName}" required="true" />
             </div>
             <br/>
-            <h:commandButton value="Add passenger" actionListener="#{passengersBean.create()}" action="index?faces-redirect=true"/>
+            <h:commandButton value="Sign passenger" actionListener="#{passengersBean.create()}" action="index?faces-redirect=true"/>
         </h:form>
     </div>
     <div>
-        <h:link outcome="mybatis/airlines" value="MyBatis implementation"/>
+        <h:link outcome="mybatis/airlines" value="MyBatis"/>
     </div>
 </h:body>
 </html>

@@ -8,7 +8,7 @@ import org.mybatis.cdi.Mapper;
 public interface FlightMapper {
     int deleteByPrimaryKey(Integer id);
     int insert(Flight row);
-    Flight selectByPrimaryKey(Integer id);
     List<Flight> selectAll();
+    Flight selectByPrimaryKey(Integer id);
     int updateByPrimaryKey(Flight row);
 }

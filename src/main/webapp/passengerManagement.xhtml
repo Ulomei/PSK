@@ -10,14 +10,14 @@
     <f:event type="preRenderView" listener="#{passengerManagementBean.loadPassengerData()}"/>
 </f:metadata>
 <h:body>
-    <h1>Passeneger #{passengerManagementBean.passenger.firstName}</h1>
+    <h2>Passeneger #{passengerManagementBean.passenger.firstName}</h2>
     <h:form rendered="#{not empty passengerManagementBean.passenger.flights}">
-        <h2>Flights assigned to passenger:</h2>
+        <h3>Flights assigned to passenger:</h3>
         <ol>
             <ui:repeat value="#{passengerManagementBean.passenger.flights}" var="flight">
                 <li>
-                    <h:link value="#{flight.departure} #{flight.destination}" outcome="flightManagement?flightId=#{flight.id}" />
-                    <h:commandButton value="x"
+                    <h:link value="#{flight.departure}-#{flight.destination}" outcome="flightManagement?flightId=#{flight.id}" />
+                    <h:commandButton value="Delete flight"
                                      actionListener="#{passengerManagementBean.removeEmployeeFromProject(flight.id)}"
                                      action="#{'passengerManagement?faces-redirect=true&amp;passengerId='.concat(passengerManagementBean.passenger.id)}"/>
                 </li>
@@ -48,10 +48,10 @@
         </h:commandButton>
     </h:form>
     <h:form>
-        <h:commandButton value="DELETE THIS PASSENEGR"
+        <h:commandButton value="Delete this passenger"
                          action="#{passengerManagementBean.deletePassenger()}"/>
     </h:form>
     <br/>
-    <h:link outcome="index" value="Back to index page"/>
+    <h:link outcome="index" value="Index page"/>
 </h:body>
 </html>

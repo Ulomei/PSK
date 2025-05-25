@@ -41,7 +41,6 @@ public class DisplayService implements Serializable {
                     break;
                 }
             }
-            // If the list is empty after removal, remove the entry
             if (flights.isEmpty()) {
                 newFlights.remove(passengerId);
             }
@@ -59,7 +58,6 @@ public class DisplayService implements Serializable {
                 }
             }
         }
-        // Remove any empty lists
         newFlights.entrySet().removeIf(entry -> entry.getValue().isEmpty());
     }
 }

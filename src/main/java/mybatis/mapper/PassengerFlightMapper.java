@@ -7,8 +7,8 @@ import org.mybatis.cdi.Mapper;
 @Mapper
 public interface PassengerFlightMapper {
     int insert(PassengerFlight row);
+    int deletePassengerForFlight(Integer row);
     List<PassengerFlight> selectAll();
     int deleteAllPassengersForFlight(Integer flightId);
-    int deletePassengerForFlight(Integer row);
     int deleteAllFlightsForPassenger(Integer passengerId);
 }

@@ -6,10 +6,11 @@ import org.mybatis.cdi.Mapper;
 
 @Mapper
 public interface AirlineMapper {
-    int deleteByPrimaryKey(Integer id);
     int insert(Airline row);
+    List<Airline> selectAllWithFlights();
+    int deleteByPrimaryKey(Integer id);
     Airline selectByPrimaryKey(Integer id);
     List<Airline> selectAll();
     int updateByPrimaryKey(Airline row);
-    List<Airline> selectAllWithFlights();
+
 }

@@ -7,8 +7,8 @@ import org.mybatis.cdi.Mapper;
 
 @Mapper
 public interface PassengerMapper {
-    int deleteByPrimaryKey(Integer id);
     int insert(Passenger row);
+    int deleteByPrimaryKey(Integer id);
     Passenger selectByPrimaryKey(Integer id);
     List<Passenger> selectAll();
     int updateByPrimaryKey(Passenger row);

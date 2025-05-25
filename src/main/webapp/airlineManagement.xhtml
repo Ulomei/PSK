@@ -13,12 +13,12 @@
 <h:body>
     <h2>Airline #{airlineManagementBean.airline.name}</h2>
     <h:form rendered="#{not empty airlineManagementBean.airline.flights}">
-        <h2>Flights in the airline:</h2>
+        <h3>Flights in the airline:</h3>
         <ol>
             <ui:repeat value="#{airlineManagementBean.airline.flights}" var="flight">
                 <li>
-                    <h:link value="#{flight.departure}" outcome="flightManagement?flightId=#{flight.id}" />
-                    <h:commandButton value="x"
+                    <h:link value="#{flight.departure}-#{flight.destination}" outcome="flightManagement?flightId=#{flight.id}" />
+                    <h:commandButton value="Delete flight"
                                      actionListener="#{airlineManagementBean.deleteFlight(flight.id)}"
                                      action="#{'airlineManagement?faces-redirect=true&amp;airId='.concat(airlineManagementBean.airline.id)}"/>
                 </li>
@@ -48,6 +48,6 @@
                          action="#{airlineManagementBean.deleteAirline}"/>
     </h:form>
     <br/>
-    <h:link outcome="index" value="Back to index page"/>
+    <h:link outcome="index" value="Index page"/>
 </h:body>
 </html>
