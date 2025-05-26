@@ -46,6 +46,27 @@
         </h:form>
     </div>
     <div>
+        <h:form>
+            <h:commandButton value="Async task" action="#{asynBean.startTask}" />
+            <h:outputText value="#{asynBean.message}" />
+        </h:form>
+
+    </div>
+    <h:form>
+        <h:commandButton value="Log a message" action="#{loggingDemoBean.logMessage}"/>
+    </h:form>
+    <h:form>
+        <h:outputText value="#{taxDemoBean.calculatedTax}" />
+    </h:form>
+    <h:form>
+        <h:commandButton value="Place order" action="#{orderBean.makeOrder}" />
+    </h:form>
+    <h:form>
+        <h:outputLabel value="Amount: " for="amount"/>
+        <h:inputText id="amount" value="#{paymentBean.amount}" />
+        <h:commandButton value="Make Payment" action="#{paymentBean.makePayment}" />
+    </h:form>
+    <div>
         <h:link outcome="mybatis/airlines" value="MyBatis"/>
     </div>
 </h:body>
