@@ -66,6 +66,7 @@
         <h:inputText id="amount" value="#{paymentBean.amount}" />
         <h:commandButton value="Make Payment" action="#{paymentBean.makePayment}" />
     </h:form>
+    <h:messages globalOnly="true" layout="table" />
     <div>
         <h:link outcome="mybatis/airlines" value="MyBatis"/>
     </div>

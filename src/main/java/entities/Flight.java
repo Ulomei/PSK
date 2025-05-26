@@ -3,6 +3,9 @@ package entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
@@ -26,23 +29,28 @@ public class Flight implements Serializable{
     @Column(name = "ID")
     private Integer id;
 
+    @JsonbProperty("departure")
     @Size(max =100)
     @Column(name = "DEPARTURE")
     private String departure;
 
+    @JsonbProperty("destination")
     @Size(max =100)
     @Column(name = "DESTINATION")
     private String destination;
 
     @ManyToOne
     @JoinColumn(name = "AIRLINE_ID", nullable = false)
+    @JsonbTransient
     private Airline airline;
 
     @ManyToMany(mappedBy = "flights")
+    @JsonbTransient
     private List<Passenger> passengers = new ArrayList<>();
 
     @Version
     @Column(name = "OPT_LOCK_VERSION")
+    @JsonbTransient
     private Integer version;
 
     @Override
