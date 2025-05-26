@@ -1,6 +1,8 @@
 package services;
 
+import entities.Airline;
 import entities.Flight;
+import persistence.AirlineDAO;
 import persistence.FlightDAO;
 
 import javax.ejb.Stateless;
@@ -15,6 +17,9 @@ public class FlightResource {
 
     @Inject
     private FlightDAO flightDAO;
+
+    @Inject
+    private AirlineDAO airlineDAO;
 
     @GET
     @Path("/{id}")
@@ -31,6 +36,15 @@ public class FlightResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createFlight(Flight flight) {
+        Airline airline = airlineDAO.find(2); // Replace '1' with the desired logic
+
+        if (airline == null) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Airline not found").build();
+        }
+
+        flight.setAirline(airline); // Assign the airline
+
         flightDAO.persist(flight);
         return Response.status(Response.Status.CREATED).entity(flight).build();
     }
